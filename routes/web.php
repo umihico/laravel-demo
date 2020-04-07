@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['middleware' => ['basic:hoge,fuga']], function () {
+    Route::get('/basic', function () {
+        return "Authorized";
+    });
+});
