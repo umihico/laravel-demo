@@ -33,11 +33,34 @@ functions:
     layers:
       - ${bref:layer.php-73-fpm}
     events:
-      -   http: 'ANY /'
-      -   http: 'ANY /{proxy+}'
+      - http: 'ANY /'
+      - http:
+          path: /basic
+          method: any
+          authorizer:
+            name: auth
+            resultTtlInSeconds: 0
+            type: request
+      - http: 'ANY /{proxy+}'
+  auth:
+    handler: authorizer.auth
+    runtime: nodejs12.x
 #  artisan:
 #    handler: artisan
 #    timeout: 120 # in seconds
 #    layers:
 #      - ${bref:layer.php-73} # PHP
 #      - ${bref:layer.console} # The "console" layer
+
+resources:
+  Resources:
+    GatewayResponse:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.WWW-Authenticate: "'Basic'"
+        ResponseType: UNAUTHORIZED
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+        StatusCode: '401'
+
