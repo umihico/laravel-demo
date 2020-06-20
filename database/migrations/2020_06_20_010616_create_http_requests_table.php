@@ -14,7 +14,13 @@ class CreateHttpRequestsTable extends Migration
     public function up()
     {
         Schema::create('http_requests', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->char('name', 255);
+            $table->char('method', 10);
+            $table->char('path', 255);
+            $table->json('data');
+            $table->integer('milliseconds');
+            $table->integer('user_id')->nullable();
             $table->timestamps();
         });
     }
