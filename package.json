@@ -15,8 +15,8 @@
         "laravel-mix": "^6.0.41",
         "lodash": "^4.17.21",
         "resolve-url-loader": "^5.0.0",
-        "sass": "^1.49.0",
+        "sass": "^1.49.7",
         "sass-loader": "^12.4.0",
-        "serverless-domain-manager": "^5.4.1"
+        "serverless-domain-manager": "^5.8.0"
     }
 }
